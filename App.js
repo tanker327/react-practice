@@ -7,7 +7,16 @@ class App extends React.Component{
     }
 }
 
+App.propTypes ={
+    txt:React.PropTypes.string,
+    cat:React.PropTypes.number.isRequired
+}
+
+App.defaultProps = {
+    txt:'This is the default value'
+}
+
 ReactDOM.render(
-    <App txt="This is the props value" />,
+    <App txt="This is the props value" cat={5}/>,
     document.getElementById('app')
 );
