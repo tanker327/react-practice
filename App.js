@@ -6,7 +6,7 @@ class App extends React.Component {
 
     state={value:88}
     static defaultProps = {value:99}
-    update(){
+    update = ()=>{
         //let value =this.state.value;
         this.setState({ value : ++this.state.value });
     }
@@ -19,15 +19,16 @@ class App extends React.Component {
     //}
 
     componentWillMount(){
-
         console.log(`component will mount, state value : ${this.state.value}, props value : ${this.props.value}`);
     }
     componentDidMount(){
         console.log('component did mount');
+        this.inc = setInterval(this.update, 500);
     }
 
     componentWillUnmount(){
-        console.log('Component will unmount !')
+        console.log('Component will unmount !');
+        clearInterval(this.inc);
     }
     render() {
         console.log(`render....state value : ${this.state.value}, props value : ${this.props.value}`)
