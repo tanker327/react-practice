@@ -1,22 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class App extends React.Component{
+class Comp extends React.Component{
+    constructor(props){ // same as componentWillMount
+        super(props);
+        this.state = {
+            myState:'default state'
+        };
+    }
+    update = (e)=>{ // get 'this' bind without set in contructor
+        console.log("hello "+ this.getValue());
+    }
+    getValue(){
+        return "get value";
+    }
+
+    static defaultProps = {  //set default props
+        param1:'default  props value'
+    }
+
+    static propTypes = {  // set proptype
+        num:React.PropTypes.number.isRequired
+    }
+
+    state = {} //set state
+
     render(){
-        return <h1>{this.props.txt}</h1>;
+        return <div onClick={this.update} >{this.props.param1}:{this.props.test}:{this.state.myState}</div>;
+    }
+
+}
+
+class App extends React.Component{
+
+    render(){
+        let props ={
+            //param1:'parameters',
+            test:'test',
+            num:1
+        }
+        return  <Comp {...props} />;//Destructing and spread attributes
     }
 }
 
-App.propTypes ={
-    txt:React.PropTypes.string,
-    cat:React.PropTypes.number.isRequired
-}
 
-App.defaultProps = {
-    txt:'This is the default value'
-}
+let app = ReactDOM.render(<App />, document.getElementById('app'));
 
-ReactDOM.render(
-    <App txt="This is the props value" cat={5}/>,
-    document.getElementById('app')
-);
+
+
